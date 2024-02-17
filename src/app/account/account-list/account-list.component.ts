@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { AccountsInterface } from '../../interfaces/accountsinterface';
 import { AccountsService } from '../../services/accounts.service';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-account-list',
   standalone: true,
@@ -13,9 +14,19 @@ import { CommonModule } from '@angular/common';
 })
 export class AccountListComponent {
   accounts: AccountsInterface[] = [];
-  constructor(private accountService: AccountsService) {}
+  constructor(
+    private accountService: AccountsService,
+    private http: HttpClient
+  ) {
+    console.log(this.accounts);
+  }
+  // ngOnInit(): void {
+  //   this.getAccounts();
+  // }
+
   ngOnInit(): void {
     this.getAccounts();
+    console.log('working perfectly');
   }
 
   getAccounts() {
