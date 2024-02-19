@@ -28,7 +28,7 @@ export const routes: Routes = [
         component: AccountCreateComponent,
       },
       {
-        path: 'edit', // child route path
+        path: 'edit/:id', // child route path
         component: AccountEditComponent,
       },
       {

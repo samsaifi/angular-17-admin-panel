@@ -4,21 +4,20 @@ import { RouterOutlet } from '@angular/router';
 import { AccountsInterface } from '../../interfaces/accountsinterface';
 import { AccountsService } from '../../services/accounts.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-account-list',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, CommonModule],
+  imports: [RouterLink, RouterOutlet, CommonModule, HttpClientModule],
   templateUrl: './account-list.component.html',
   styleUrl: './account-list.component.css',
 })
 export class AccountListComponent {
   accounts: AccountsInterface[] = [];
   constructor(
-    private accountService: AccountsService,
-    private http: HttpClient
+    private accountService: AccountsService
   ) {
-    console.log(this.accounts);
+
   }
   // ngOnInit(): void {
   //   this.getAccounts();
@@ -26,13 +25,12 @@ export class AccountListComponent {
 
   ngOnInit(): void {
     this.getAccounts();
-    console.log('working perfectly');
   }
 
   getAccounts() {
     this.accountService
       .getAccounts()
-      .subscribe((accounts) => (this.accounts = accounts));
+      .subscribe(res => (this.accounts = res));
   }
 
   handleClick(id: number) {
