@@ -4,21 +4,20 @@ import { RouterOutlet } from '@angular/router';
 import { AccountsInterface } from '../../interfaces/accountsinterface';
 import { AccountsService } from '../../services/accounts.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FlashMessageService } from '../../services/flash-message.service';
 @Component({
   selector: 'app-account-list',
   standalone: true,
-  imports: [RouterLink, RouterOutlet, CommonModule, HttpClientModule],
+  imports: [RouterLink, RouterOutlet, CommonModule],
   templateUrl: './account-list.component.html',
   styleUrl: './account-list.component.css',
 })
 export class AccountListComponent {
   accounts: AccountsInterface[] = [];
   constructor(
-    private accountService: AccountsService
-  ) {
-
-  }
+    private accountService: AccountsService,
+    private flashMessageService: FlashMessageService
+  ) {}
   // ngOnInit(): void {
   //   this.getAccounts();
   // }
@@ -28,16 +27,14 @@ export class AccountListComponent {
   }
 
   getAccounts() {
-    this.accountService
-      .getAccounts()
-      .subscribe(res => (this.accounts = res));
+    this.accountService.getAccounts().subscribe((res) => (this.accounts = res));
   }
 
   handleClick(id: number) {
     this.accountService
       .deleteAccount(id)
       .subscribe((accounts) => (this.accounts = accounts));
-
+    this.flashMessageService.showMessage('Account successfully deleted');
     // this.accounts = this.accounts.filter((account) => account.id !== id);
   }
 }

@@ -8,26 +8,45 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AccountsService {
-  baseurl = "http://localhost:3000/api/";
+  baseurl = 'http://localhost:3000/api/';
   constructor(private http: HttpClient) {}
   getAccounts(): Observable<AccountsInterface[]> {
     return this.http.get<AccountsInterface[]>(`${this.baseurl}/accounts/get`);
   }
   createAccount(account: any): Observable<AccountsInterface[]> {
-    ACCOUNTS.push(account);
+    // console.log(account);
+    this.http
+      .post<AccountsInterface[]>(`${this.baseurl}accounts/add`, account)
+      .subscribe((data) => {
+        console.log(data);
+      });
+
     return this.getAccounts();
   }
-  findAccount(id: number): any[] {
-    return ACCOUNTS.filter((account) => account._id === id);
+  updateAccount(account: any, id: any): Observable<AccountsInterface[]> {
+    this.http
+      .put<AccountsInterface[]>(`${this.baseurl}accounts/update/${id}`, account)
+      .subscribe((data) => {
+        console.log(data);
+      });
+
+    return this.getAccounts();
+  }
+  findAccount(id: any): Observable<AccountsInterface[]> {
+    return this.http.get<AccountsInterface[]>(
+      `${this.baseurl}/accounts/find/${id}`
+    );
   }
   deleteAccount(id: number): Observable<AccountsInterface[]> {
     const body = {
-      _id: id
+      _id: id,
     };
-   this.http.delete<AccountsInterface[]>(`${this.baseurl}accounts/delete/`, {body}).subscribe((data) => {
-       console.log(id, data);
-   });
-  // console.log(`${this.baseurl}/accounts/delete/${id}`);
+    this.http
+      .delete<AccountsInterface[]>(`${this.baseurl}accounts/delete/`, { body })
+      .subscribe((data) => {
+        console.log(id, data);
+      });
+    // console.log(`${this.baseurl}/accounts/delete/${id}`);
 
     return this.getAccounts();
   }
