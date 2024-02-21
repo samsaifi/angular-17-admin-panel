@@ -1,0 +1,9 @@
+<p app:appTestDirective [ngClass]="isSpecial ? 'text-green-500 text-2xl' : 'text-red-400'" (click)="chagneStatus()">
+    test-mycode works!</p>
+<div *ngIf="currentCustomer">Hello, {{currentCustomer.name}}</div>
+
+@defer {
+
+} @loading (after 10000ms; minimum 1s) {
+<p>loading </p>
+}

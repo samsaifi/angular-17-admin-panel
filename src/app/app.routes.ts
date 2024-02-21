@@ -12,43 +12,66 @@ import { AccountListComponent } from './account/account-list/account-list.compon
 import { AccountCreateComponent } from './account/account-create/account-create.component';
 import { AccountEditComponent } from './account/account-edit/account-edit.component';
 import { AccountViewComponent } from './account/account-view/account-view.component';
+import { TestMycodeComponent } from './test-mycode/test-mycode.component';
+import { authGuard } from './Middleware/auth.guard';
+import { LoginComponent } from './Auth/login/login.component';
+import { RegisterComponent } from './Auth/register/register.component';
 
 export const routes: Routes = [
-  { path: 'dashboard', component: DashbordComponent },
-  {
-    path: 'accounts',
-    component: AccountComponent,
-    children: [
-      {
-        path: 'list', // child route path
-        component: AccountListComponent,
-      },
-      {
-        path: 'add', // child route path
-        component: AccountCreateComponent,
-      },
-      {
-        path: 'edit/:rowid', // child route path
-        component: AccountEditComponent,
-      },
-      {
-        path: 'view', // child route path
-        component: AccountViewComponent,
-      },
-      {
-        path: '',
-        redirectTo: 'list',
-        pathMatch: 'full',
-      },
-    ],
-  },
+    {
+        path: 'login',
+        component: LoginComponent,
+    },
+    {
+        path: 'register',
+        component: RegisterComponent,
+    },
 
-  { path: 'leads', component: LeadListComponent },
-  { path: 'add-lead', component: LeadCreateComponent },
-  { path: 'opportunities', component: OpportunityListComponent },
-  { path: 'add-opportunity', component: OpportunityCreateComponent },
-  { path: 'contacts', component: ContactListComponent },
-  { path: 'add-contact', component: ContactCreateComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', component: PageNotFoundComponent },
+    {
+        path: '',
+        canActivate: [authGuard],
+        children: [
+            {
+                path: 'dashboard',
+                component: DashbordComponent,
+                canActivate: [authGuard],
+            },
+            {
+                path: 'accounts',
+                component: AccountComponent,
+                children: [
+                    {
+                        path: 'list', // child route path
+                        component: AccountListComponent,
+                    },
+                    {
+                        path: 'add', // child route path
+                        component: AccountCreateComponent,
+                    },
+                    {
+                        path: 'edit/:rowid', // child route path
+                        component: AccountEditComponent,
+                    },
+                    {
+                        path: 'view', // child route path
+                        component: AccountViewComponent,
+                    },
+                    {
+                        path: '',
+                        redirectTo: 'list',
+                        pathMatch: 'full',
+                    },
+                ],
+            },
+            { path: 'test', component: TestMycodeComponent },
+            { path: 'leads', component: LeadListComponent },
+            { path: 'add-lead', component: LeadCreateComponent },
+            { path: 'opportunities', component: OpportunityListComponent },
+            { path: 'add-opportunity', component: OpportunityCreateComponent },
+            { path: 'contacts', component: ContactListComponent },
+            { path: 'add-contact', component: ContactCreateComponent },
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '**', component: PageNotFoundComponent },
+        ],
+    },
 ];
