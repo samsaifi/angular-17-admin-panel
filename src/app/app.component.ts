@@ -24,7 +24,7 @@ import { TestMycodeComponent } from './test-mycode/test-mycode.component';
 })
 export class AppComponent {
     title = 'crmapp';
-
+    name: string = '';
     message: string | undefined;
 
     constructor(private flashMessageService: FlashMessageService) {}
