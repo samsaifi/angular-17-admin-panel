@@ -9,4 +9,6 @@ import { Router, RouterLink } from '@angular/router';
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
 })
-export class LoginComponent {}
+export class LoginComponent {
+  
+}

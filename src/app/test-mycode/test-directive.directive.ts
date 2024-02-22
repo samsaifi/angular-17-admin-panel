@@ -1,11 +1,11 @@
-import { Directive } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[appTestDirective]',
-  standalone: true
+    selector: '[appTestDirective]',
+    standalone: true,
 })
 export class TestDirectiveDirective {
-
-  constructor() { }
-
+    constructor(private el: ElementRef) {
+        this.el.nativeElement.style.backgroundColor = 'yellow';
+    }
 }

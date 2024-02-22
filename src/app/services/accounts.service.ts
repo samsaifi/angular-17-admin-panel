@@ -9,7 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AccountsService {
   baseurl = 'http://localhost:3000/api/';
-  constructor(private http: HttpClient) {}
+  // private http: HttpClient;
+  constructor(private http: HttpClient) { }
+  
+
   getAccounts(): Observable<AccountsInterface[]> {
     return this.http.get<AccountsInterface[]>(`${this.baseurl}/accounts/get`);
   }
