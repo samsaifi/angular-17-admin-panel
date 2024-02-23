@@ -1,21 +1,22 @@
 import { Routes } from '@angular/router';
-import { LeadListComponent } from './lead-list/lead-list.component';
-import { LeadCreateComponent } from './lead-create/lead-create.component';
-import { OpportunityListComponent } from './opportunity-list/opportunity-list.component';
-import { OpportunityCreateComponent } from './opportunity-create/opportunity-create.component';
-import { ContactCreateComponent } from './contact-create/contact-create.component';
-import { ContactListComponent } from './contact-list/contact-list.component';
-import { DashbordComponent } from './dashbord/dashbord.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AccountComponent } from './account/account.component';
-import { AccountListComponent } from './account/account-list/account-list.component';
-import { AccountCreateComponent } from './account/account-create/account-create.component';
-import { AccountEditComponent } from './account/account-edit/account-edit.component';
-import { AccountViewComponent } from './account/account-view/account-view.component';
-import { TestMycodeComponent } from './test-mycode/test-mycode.component';
+import { LoginComponent } from './Components/Auth/login/login.component';
+import { RegisterComponent } from './Components/Auth/register/register.component';
 import { authGuard } from './Middleware/auth.guard';
-import { LoginComponent } from './Auth/login/login.component';
-import { RegisterComponent } from './Auth/register/register.component';
+import { DashbordComponent } from './Components/dashbord/dashbord.component';
+import { AccountComponent } from './Components/account/account.component';
+import { AccountListComponent } from './Components/account/account-list/account-list.component';
+import { AccountCreateComponent } from './Components/account/account-create/account-create.component';
+import { AccountEditComponent } from './Components/account/account-edit/account-edit.component';
+import { AccountViewComponent } from './Components/account/account-view/account-view.component';
+import { TestMycodeComponent } from './Components/layout/test-mycode/test-mycode.component';
+import { LeadListComponent } from './Components/lead/lead-list/lead-list.component';
+import { LeadCreateComponent } from './Components/lead/lead-create/lead-create.component';
+import { OpportunityListComponent } from './Components/opportunity/opportunity-list/opportunity-list.component';
+import { OpportunityCreateComponent } from './Components/opportunity/opportunity-create/opportunity-create.component';
+import { ContactListComponent } from './Components/contact/contact-list/contact-list.component';
+import { ContactCreateComponent } from './Components/contact/contact-create/contact-create.component';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { LayoutwithsibarComponent } from './Components/layout/layoutwithsibar/layoutwithsibar.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +31,7 @@ export const routes: Routes = [
     {
         path: '',
         canActivate: [authGuard],
+        component: LayoutwithsibarComponent,
         children: [
             {
                 path: 'dashboard',

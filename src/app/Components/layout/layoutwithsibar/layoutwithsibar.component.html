@@ -1,0 +1,18 @@
+<!--sidenav -->
+<app-sidebar />
+<div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
+<!-- end sidenav -->
+
+<main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-200 min-h-screen transition-all main">
+
+    <app-nav />
+    <!-- Content -->
+
+    <div class="p-6">
+        <div *ngIf="message" class="flash-message bg-red-500 p-2 rounded-sm text-white w-full">
+            {{ message }}
+        </div>
+        <router-outlet />
+    </div>
+    <!-- End Content -->
+</main>

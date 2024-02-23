@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { AccountsInterface } from '../../interfaces/accountsinterface';
-import { AccountsService } from '../../services/accounts.service';
 import { CommonModule } from '@angular/common';
-import { FlashMessageService } from '../../services/flash-message.service';
 import { FormsModule } from '@angular/forms';
+import { AccountsInterface } from '../../../interfaces/accountsinterface';
+import { AccountsService } from '../../../services/accounts.service';
+import { FlashMessageService } from '../../../services/flash-message.service';
 
 @Component({
     selector: 'app-account-list',
@@ -23,9 +23,10 @@ export class AccountListComponent {
         this.getAccounts();
     }
     getAccounts() {
-        this.accountService
-            .getAccounts()
-            .subscribe((res) => (this.accounts = res));
+        this.accountService.getAccounts().subscribe((res) => {
+            // console.log(res);
+            this.accounts = res;
+        });
     }
 
     handleClick(id: number) {

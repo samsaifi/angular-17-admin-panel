@@ -1,6 +1,4 @@
 import { Component, Injectable } from '@angular/core';
-import { AccountsInterface } from '../../interfaces/accountsinterface';
-import { AccountsService } from '../../services/accounts.service';
 import {
     FormArray,
     FormControl,
@@ -10,7 +8,8 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { FlashMessageService } from '../../services/flash-message.service';
+import { AccountsService } from '../../../services/accounts.service';
+import { FlashMessageService } from '../../../services/flash-message.service';
 
 @Component({
     selector: 'app-account-create',

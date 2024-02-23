@@ -1,28 +1,25 @@
 import { Component } from '@angular/core';
+import { FooterComponent } from '../footer/footer.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
+import { NavComponent } from '../nav/nav.component';
+import { FlashMessageService } from '../../../services/flash-message.service';
 import { RouterOutlet } from '@angular/router';
-
-import { FlashMessageService } from './services/flash-message.service';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from './Components/layout/footer/footer.component';
-import { SidebarComponent } from './Components/layout/sidebar/sidebar.component';
-import { NavComponent } from './Components/layout/nav/nav.component';
-import { TestMycodeComponent } from './Components/layout/test-mycode/test-mycode.component';
+
 @Component({
-    selector: 'app-root',
+    selector: 'app-layoutwithsibar',
     standalone: true,
     imports: [
-        RouterOutlet,
         FooterComponent,
         SidebarComponent,
         NavComponent,
+        RouterOutlet,
         CommonModule,
-        TestMycodeComponent,
     ],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
+    templateUrl: './layoutwithsibar.component.html',
+    styleUrl: './layoutwithsibar.component.css',
 })
-export class AppComponent {
-    title = 'crmapp';
+export class LayoutwithsibarComponent {
     name: string = '';
     message: string | undefined;
 
