@@ -7,26 +7,40 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class AuthService {
-    baseurl = 'http://localhost:3000/api/auth';
+    baseurl = 'http://localhost:3000/api';
     private TOKEN_KEY: string = 'crm_user_token';
-    private LOGIN_KEY: string = 'crm_user_login';
+    private LOGIN_EMIAIL_KEY: string = 'crm_user_email';
+    private LOGIN_PASSWORD_KEY: string = 'crm_user_password';
     constructor(private http: HttpClient, private router: Router) {}
 
     logInUser(data: any): Observable<any> {
-        return this.http.post<any>(`${this.baseurl}/login`, data);
+        return this.http.post<any>(`${this.baseurl}/auth/login`, data);
     }
-
+    registerUser(data: any): Observable<any> {
+        return this.http.post<any>(`${this.baseurl}/auth/register`, data);
+    }
     setAuthToken(token: string): void {
         localStorage.setItem(this.TOKEN_KEY, token);
     }
-    setLoginUserLocalStorage(token: string): void {
-        localStorage.setItem(this.LOGIN_KEY, token);
+    setLoginUserLocalStorage(user: any): void {
+        this.removeLoginUserLocalStorage();
+        localStorage.setItem(this.LOGIN_EMIAIL_KEY, user.email);
+        localStorage.setItem(this.LOGIN_PASSWORD_KEY, user.password);
     }
 
     // Get the authentication token from localStorage
     getLoginUserLocalStorage(): any {
-        return localStorage.getItem(this.LOGIN_KEY);
+        const user: any = {
+            email: localStorage.getItem(this.LOGIN_EMIAIL_KEY),
+            password: localStorage.getItem(this.LOGIN_PASSWORD_KEY),
+        };
+        return user;
     }
+    removeLoginUserLocalStorage(): void {
+        localStorage.removeItem(this.LOGIN_EMIAIL_KEY);
+        localStorage.removeItem(this.LOGIN_PASSWORD_KEY);
+    }
+
     getAuthToken(): any {
         return localStorage.getItem(this.TOKEN_KEY);
     }
@@ -43,10 +57,18 @@ export class AuthService {
     logout(): void {
         this.removeAuthToken();
         this.http
-            .get<any>('http://localhost:3000/api/user/logout')
+            .get<any>(`${this.baseurl}/user/logout`)
             .subscribe((response) => {
                 console.log(response);
             });
         this.router.navigate(['/login']);
+    }
+    forgetPassword(data: any): Observable<any> {
+        console.log(data);
+
+        return this.http.post<any>(
+            `${this.baseurl}/auth/forget-password`,
+            data
+        );
     }
 }

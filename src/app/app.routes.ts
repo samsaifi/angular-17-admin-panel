@@ -17,6 +17,7 @@ import { ContactListComponent } from './Components/contact/contact-list/contact-
 import { ContactCreateComponent } from './Components/contact/contact-create/contact-create.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { LayoutwithsibarComponent } from './Components/layout/layoutwithsibar/layoutwithsibar.component';
+import { ForgetPaasswordComponent } from './Components/Auth/forget-paassword/forget-paassword.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
     {
         path: 'register',
         component: RegisterComponent,
+    },
+    {
+        path: 'forget-password',
+        component: ForgetPaasswordComponent,
     },
 
     {

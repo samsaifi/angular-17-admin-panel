@@ -6,6 +6,9 @@
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Sign in to your account
                 </h1>
+                <div *ngIf="flashMessage" class="flash-message bg-green-500 p-2 rounded-sm text-white w-full">
+                    {{ flashMessage }}
+                </div>
                 <span class="flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1" *ngIf="errors">
                     {{ errors }}
                 </span>
@@ -16,14 +19,53 @@
                         <input type="email" name="email" id="email"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="name@company.com" required="" formControlName="email"
-                            value="saddam1234321@gmial.com" />
+                            value="{{loginFrom.get('email').value}}" />
+
+                        <div *ngIf="loginFrom.get('email').invalid && (loginFrom.get('email').dirty || loginFrom.get('email').touched)"
+                            class="  flex flex-col gap-y-4">
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('email').errors?.required ">
+                                <p>Email field is required.</p>
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('email').errors?.minlength">
+                                Email is too short
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('email').errors?.maxlength">
+                                Email is too Long
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('email').validate?.maxlength">
+                                Email can't be empty
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <label for="password"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
                         <input type="password" name="password" id="password" placeholder="••••••••"
                             class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            required="" formControlName="password" value="12345678" />
+                            required="" formControlName="password" value="{{loginFrom.get('password').value}}" />
+                        <div *ngIf="loginFrom.get('password').invalid && (loginFrom.get('password').dirty || loginFrom.get('password').touched)"
+                            class="  flex flex-col gap-y-4">
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('password').errors?.required ">
+                                <p>Password field is required.</p>
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('password').errors?.minlength">
+                                Password is too short
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('password').errors?.maxlength">
+                                Password is too Long
+                            </div>
+                            <div class="text-red-500 text-xs  font-bold "
+                                *ngIf="loginFrom.get('password').validate?.maxlength">
+                                Password can't be empty
+                            </div>
+                        </div>
                     </div>
                     <div class="flex items-center justify-between">
                         <div class="flex items-start">
@@ -36,7 +78,7 @@
                                 <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                             </div>
                         </div>
-                        <a href="#"
+                        <a routerLink="/forget-password"
                             class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot
                             password?</a>
                     </div>
@@ -46,7 +88,8 @@
                     </button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet?
-                        <a href="#" class="font-medium text-green-600 hover:underline dark:text-primary-500">Sign up</a>
+                        <a routerLink="/register"
+                            class="font-medium text-green-600 hover:underline dark:text-primary-500">Sign up</a>
                     </p>
                 </form>
             </div>

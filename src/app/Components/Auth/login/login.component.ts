@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { FlashMessageService } from '../../../services/flash-message.service';
 @Component({
     selector: 'app-login',
     standalone: true,
@@ -21,17 +22,35 @@ export class LoginComponent {
     user: any = {};
     isChecked: boolean = false;
     errors: any = '';
-    constructor(private authService: AuthService, private router: Router) {}
+
+    flashMessage: string | undefined;
+    constructor(
+        private authService: AuthService,
+        private router: Router,
+        private flashMessageService: FlashMessageService
+    ) {}
     ngOnInit(): void {
-        this.user.email = 'saddam1234321@gmail.com';
-        this.user.password = 12345678;
+        this.flashMessageService.getMessage().subscribe((message) => {
+            this.flashMessage = message;
+            // Automatically clear the message after a certain time (e.g., 3 seconds)
+            setTimeout(() => {
+                this.flashMessage = undefined;
+            }, 3000);
+        });
+        const localstorage = this.authService.getLoginUserLocalStorage();
+        this.user.email = localstorage.email
+            ? localstorage.email
+            : 'saddam1234321@gmail.com';
+        this.user.password = localstorage.password
+            ? localstorage.password
+            : 12345678;
         this.loginFrom = new FormGroup({
-            email: new FormControl('', [
+            email: new FormControl(this.user.email, [
                 Validators.required,
                 Validators.min(4),
                 Validators.email,
             ]),
-            password: new FormControl('', [
+            password: new FormControl(this.user.password, [
                 Validators.required,
                 Validators.min(8),
             ]),
