@@ -8,7 +8,8 @@
                 *ngIf="forgetPasswordErrors">
                 {{ forgetPasswordErrors }}
             </span>
-            <form action="" class="my-10" [formGroup]="forgetPasswordFrom" (ngSubmit)="onForgetPassword()">
+            <form action="" class="my-10" [formGroup]="forgetPasswordFrom" (ngSubmit)="onForgetPassword()"
+                *ngIf="!isEmailValid">
                 <div class="flex flex-col space-y-5">
                     <label for="email">
                         <p class="font-medium text-slate-700 pb-2">Email address</p>

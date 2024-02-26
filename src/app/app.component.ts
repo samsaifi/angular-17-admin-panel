@@ -10,14 +10,7 @@ import { TestMycodeComponent } from './Components/layout/test-mycode/test-mycode
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [
-        RouterOutlet,
-        FooterComponent,
-        SidebarComponent,
-        NavComponent,
-        CommonModule,
-        TestMycodeComponent,
-    ],
+    imports: [RouterOutlet, CommonModule, TestMycodeComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
 })

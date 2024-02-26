@@ -22,7 +22,7 @@ export class LoginComponent {
     user: any = {};
     isChecked: boolean = false;
     errors: any = '';
-
+    message: string | undefined;
     flashMessage: string | undefined;
     constructor(
         private authService: AuthService,

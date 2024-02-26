@@ -15,7 +15,6 @@ export class AccountsService {
     getAccounts(): Observable<AccountsInterface[]> {
         const headers = this.auth.getTokenHeaders();
         // console.log(headers);
-
         return this.http.get<AccountsInterface[]>(
             `${this.baseurl}/accounts/get`,
             { headers }

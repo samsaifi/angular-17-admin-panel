@@ -65,9 +65,14 @@ export class AuthService {
     }
     forgetPassword(data: any): Observable<any> {
         console.log(data);
-
         return this.http.post<any>(
             `${this.baseurl}/auth/forget-password`,
+            data
+        );
+    }
+    setNewPassword(data: any): Observable<any> {
+        return this.http.post<any>(
+            `${this.baseurl}/auth/save-new-password`,
             data
         );
     }

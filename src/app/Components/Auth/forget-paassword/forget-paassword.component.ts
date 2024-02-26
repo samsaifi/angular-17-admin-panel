@@ -1,3 +1,4 @@
+import { FlashMessageService } from './../../../services/flash-message.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import {
@@ -19,11 +20,16 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ForgetPaasswordComponent {
     forgetPasswordFrom: any = {};
+    _id: String = '';
     newPasswordFrom: any = {};
     isEmailValid: boolean = false;
     isConfirmPasswordDirty = false;
     forgetPasswordErrors: any = '';
-    constructor(private router: Router, private auth: AuthService) {}
+    constructor(
+        private router: Router,
+        private auth: AuthService,
+        private flashMsg: FlashMessageService
+    ) {}
 
     ngOnInit() {
         this.forgetPasswordFrom = new FormGroup({
@@ -50,16 +56,36 @@ export class ForgetPaasswordComponent {
     onForgetPassword(): void {
         this.auth.forgetPassword(this.forgetPasswordFrom.value).subscribe(
             (res) => {
-                console.log(res.status);
-                console.log(res.status);
+                // console.log(res);
+                this.isEmailValid = true;
+                this._id = res.user._id;
+                console.log(res.user._id);
             },
             (err) => {
-                console.log(err);
+                // console.log(err);
+                this.forgetPasswordErrors = err.statusText;
             }
         );
     }
     onSetNewPassword(): void {
-        console.log();
+        const { password } = this.newPasswordFrom.value;
+
+        const data = { password, _id: this._id };
+        this.auth.setNewPassword(data).subscribe(
+            (res) => {
+                // console.log(res);
+                if (res.status === true) {
+                    this.flashMsg.showMessage(
+                        'User  Password Successfully updated'
+                    );
+                    this.router.navigate(['/login']);
+                }
+            },
+            (err) => {
+                // console.log(err);
+                this.forgetPasswordErrors = err.statusText;
+            }
+        );
     }
     checkPasswords(): void {
         let password = this.newPasswordFrom.get('password').value;
